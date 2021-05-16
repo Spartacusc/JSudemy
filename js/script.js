@@ -1,7 +1,16 @@
+let numberOfFilms;
 
-let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?');
+function start(){
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
-let PersonalMovieDB = {
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    }
+}
+
+start();
+
+const PersonalMovieDB = {
     count: numberOfFilms,
     movies: {},
     actors: {},
@@ -9,12 +18,50 @@ let PersonalMovieDB = {
     privat: false
 }
 
-let nameOfFilm = prompt('Один из последних фильмов?'),
-    OfFilm = prompt('На сколько его оцените'),
-    nameOfFilm2 = prompt('Один из последних фильмов?'),
-    OfFilm2 = prompt('На сколько его оцените');
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++){
+        let nameOfFilm = prompt('Один из последних фильмов?'),
+            OfFilm = prompt('На сколько его оцените');
+    
+        if ( nameOfFilm != null && OfFilm != null && nameOfFilm != '' && OfFilm != '' && nameOfFilm.length < 50) {
+            PersonalMovieDB.movies[nameOfFilm] = OfFilm;
+            console.log('done');
+        } else {
+            console.log('error');
+            i--;
+        }
+    }
+}
 
-PersonalMovieDB.movies[nameOfFilm] = OfFilm;
-PersonalMovieDB.movies[nameOfFilm2] = OfFilm2;
+rememberMyFilms();
 
-console.log(PersonalMovieDB);
+
+function detectionPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count >= 30) {
+        console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
+}
+
+// detectionPersonalLevel()
+
+function showMyDB() {
+    if (PersonalMovieDB.privat == false) {
+        console.log(PersonalMovieDB);
+    }
+}
+
+
+function writeYourGenres() {
+    for (let i = 1; i < 4; i++) {
+        PersonalMovieDB.genres.push(prompt(`Ваш любимый жанр под номером ${i}?`));
+    }
+}
+
+writeYourGenres()
+showMyDB()
